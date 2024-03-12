@@ -58,12 +58,12 @@ Jenkins服务需要对ECS、VPC等资源进行访问和创建操作，若您使�
 1. 查看服务实例。
 服务实例创建成功后，部署时间大约需要2分钟。部署完成后，页面上可以看到对应的服务实例。 
 
-![2.jpg](2.jpg)
+    ![2.jpg](2.jpg)
 
-2. 通过服务实例访问Jenkins
+2. 进入服务实例概览页后，可以通过Endpoint和AdminPassword访问jenkins服务。
 
-![3.jpg](3.jpg)
-进入到对应的服务实例后，可以在页面可以通过Endpoint对jenkins进行访问
+    ![3.jpg](3.jpg)
+
 
 
 ### 使用Jenkins
