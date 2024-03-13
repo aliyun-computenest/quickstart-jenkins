@@ -18,7 +18,7 @@ Jenkins服务需要对ECS、VPC等资源进行访问和创建操作，若您使�
 | AliyunCloudMonitorFullAccess    | 管理云监控（CloudMonitor）的权限     |
 | AliyunCSFullAccess              | 管理云监控（CloudMonitor）的权限     |
 
-## 部署流程
+## 部署Jenkins服务
 
 ### 部署步骤
 
@@ -38,7 +38,7 @@ Jenkins服务需要对ECS、VPC等资源进行访问和创建操作，若您使�
 
 ![1.jpg](ack1.jpg)
 
-### 执行Jenkins构建任务
+## 执行Jenkins构建任务
 
 1. 服务实例创建成功后，进入服务实例概览页，可以通过Endpoint和AdminPassword登录 Jenkins。
 
@@ -68,7 +68,7 @@ Jenkins服务需要对ECS、VPC等资源进行访问和创建操作，若您使�
 
    ![3.jpg](ack9.jpg)
 
-### 使用抢占式ECI实例执行Jenkins构建任务
+## 使用抢占式ECI实例执行Jenkins构建任务
 
 注意事项：
 使用该功能时，请确保集群中的VK（ack-virtual-node组件）为最新版本。关于如何升级组件，请参见[管理组件](https://help.aliyun.com/zh/ack/ack-managed-and-ack-dedicated/user-guide/manage-system-components)。
