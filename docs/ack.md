@@ -34,11 +34,11 @@ Jenkins服务需要对ECS、VPC等资源进行访问和创建操作，若您使�
 | 服务实例名称  | jenkins-3pgt                                                                                                                                              | 实例的名称                           |
 | 地域      | 华东1（杭州）                                                                                                                                                   | 选中服务实例的地域，建议就近选中，以获取更好的网络延时。    |
 | k8s集群Id | c377ad508***********                                                                                                                                      | 部署应用程序的K8s集群ID                  |
-| 软件配置信息  | `{"controller": { "serviceType": "LoadBalancer","admin": {"password": "Password"}},"persistence": {"size": "40Gi","storageClass": "alicloud-disk-essd"}}` | jenkins软件的配置信息(账号为admin, 请修改密码) |
+| 软件配置信息  | `{"controller": { "serviceType": "LoadBalancer","admin": {"password": "Password"}},"persistence": {"size": "40Gi","storageClass": "alicloud-disk-essd"}}` | Jenkins软件的配置信息(账号为admin, 请修改密码) |
 
 ![1.jpg](ack1.jpg)
 
-### 验证结果
+### 执行Jenkins构建任务
 
 1. 服务实例创建成功后，进入服务实例概览页，可以通过Endpoint和AdminPassword登录 Jenkins。
 
@@ -52,8 +52,7 @@ Jenkins服务需要对ECS、VPC等资源进行访问和创建操作，若您使�
 
    ![3.jpg](ack4.jpg)
 
-4. 在页面左侧导航栏中，单击Build Now执行构建。在构建流水线时，Jenkins会默认从当前ACK
-   Serverless集群中动态启动一个Slave Pod并执行构建任务，构建任务执行完毕后会立即释放该Slave Pod。
+4. 在页面左侧导航栏中，单击Build Now执行构建。在构建流水线时，Jenkins会默认从当前ACK集群中动态启动一个Slave Pod并执行构建任务，构建任务执行完毕后会立即释放该Slave Pod。
 
    ![3.jpg](ack5.jpg)
 
@@ -69,6 +68,28 @@ Jenkins服务需要对ECS、VPC等资源进行访问和创建操作，若您使�
 
    ![3.jpg](ack9.jpg)
 
-### 使用Jenkins
+### 使用抢占式ECI实例执行Jenkins构建任务
 
-更多Jenkins配置信息，请参见[Jenkins](https://www.jenkins.io/doc/)。
+注意事项：
+使用该功能时，请确保集群中的VK（ack-virtual-node组件）为最新版本。关于如何升级组件，请参见[管理组件](https://help.aliyun.com/zh/ack/ack-managed-and-ack-dedicated/user-guide/manage-system-components)。
+
+1. 参考[配置说明](https://help.aliyun.com/document_detail/185127.html)修改eci-profile中的selectors属性为：
+
+   `"[{\n\t\"name\": \"selector-eci\",\n\t\"namespaceSelector\": {\n\n\t\t\"matchLabels\": {\n\t\t\t\"type\": \"eci\"\n\t\t}\n\t},\n\t\"effect\": {\n\t\t\"annotations\": {\n\t\t\t\"k8s.aliyun.com/eci-spot-strategy\": \"SpotAsPriceGo\"\n\t\t}\n\t}\n}]"`
+
+   ![3.jpg](eci1.jpg)
+
+2. 编辑Jenkins的命名空间并添加标签：
+   
+   `type：eci`
+
+   ![3.jpg](eci2.jpg)
+
+3. 运行Jenkins构建任务，Jenkins会默认从当前ACK集群中动态启动一个抢占式ECI Pod并执行构建任务。
+   
+   ![3.jpg](eci3.jpg)
+
+4. 在ECI控制台可以看到对应的ECI实例，构建任务执行完毕后会立即释放该ECI实例。
+
+   ![3.jpg](eci4.jpg)
+
