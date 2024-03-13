@@ -1,4 +1,4 @@
-# 在ACK Serverless集群中部署Jenkins
+# 在ACK集群中部署Jenkins
 
 ## 概述
 
@@ -20,12 +20,10 @@ Jenkins服务需要对ECS、VPC等资源进行访问和创建操作，若您使�
 
 ## 部署Jenkins服务
 
-### 部署步骤
-
 单击[部署链接](https://computenest.console.aliyun.com/user/cn-hangzhou/serviceInstanceCreate?ServiceId=service-5789653a5cbe4817a4a7)
 ，进入服务实例部署界面，选择**容器集群版**，根据界面提示填写参数完成部署。
 
-### 部署参数说明
+### 参数说明
 
 您在创建服务实例的过程中，需要配置服务实例信息。下文介绍Jenkins社区版服务实例输入参数的详细信息。
 
