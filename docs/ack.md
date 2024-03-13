@@ -71,9 +71,23 @@ Jenkins服务需要对ECS、VPC等资源进行访问和创建操作，若您使�
 注意事项：
 使用该功能时，请确保集群中的VK（ack-virtual-node组件）为最新版本。关于如何升级组件，请参见[管理组件](https://help.aliyun.com/zh/ack/ack-managed-and-ack-dedicated/user-guide/manage-system-components)。
 
-1. 参考[配置说明](https://help.aliyun.com/document_detail/185127.html)修改eci-profile中的selectors属性为：
+1. 参考[配置说明](https://help.aliyun.com/zh/ack/ack-managed-and-ack-dedicated/user-guide/configure-an-eci-profile?spm=a2c4g.11186623.0.0.67735296sWTFHJ#section-qik-e6p-s4x)(使用编辑操作)修改eci-profile中的selectors属性为：
 
-   `"[{\n\t\"name\": \"selector-eci\",\n\t\"namespaceSelector\": {\n\n\t\t\"matchLabels\": {\n\t\t\t\"type\": \"eci\"\n\t\t}\n\t},\n\t\"effect\": {\n\t\t\"annotations\": {\n\t\t\t\"k8s.aliyun.com/eci-spot-strategy\": \"SpotAsPriceGo\"\n\t\t}\n\t}\n}]"`
+   ```json
+   [{
+       "name": "selector-eci",
+       "namespaceSelector": {
+           "matchLabels": {
+               "type": "eci"
+           }
+       },
+       "effect": {
+           "annotations": {
+               "k8s.aliyun.com/eci-spot-strategy": "SpotAsPriceGo"
+           }
+       }
+   }]
+   ```
 
    ![3.jpg](eci1.jpg)
 
