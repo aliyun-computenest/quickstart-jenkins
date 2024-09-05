@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="计算巢是阿里云开放给企业应用服务商的服务管理平台。服务商能够在计算巢上发布私有化部署服务，为其客户提供云上软件一键部署的能力；同时也支持全托管模式的服务，赋能服务商托管其客户资源。">
+  <title>Jenkins Community Edition Service Instance Deployment Document - Aliyun 计算巢 x Demo</title>
+
+  <link rel="shortcut icon" href="../img/favicon.ico">
+
+  <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css">
+  <link rel="stylesheet" href="../css/theme.css">
+  
+
+  
+
+  
+  
+
+  
+    <script src="../search/main.js"></script>
+  
+
+  
+
+  <script src="../js/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
+</head>
+
+<body>
+  <div class="container">
+    <div class="nav">
+      <div class="nav-inner">
+        <div class="logo">
+          <img src="./img/logo-2x.png">
+        </div>
+        <div class="nav-list">
+          <ul>
+          
+              <li><a href="#jenkins-community-edition-service-instance-deployment-document">Jenkins Community Edition Service Instance Deployment Document</a></li>
+              
+                  <li><a href="#overview">Overview</a></li>
+                  
+              
+                  <li><a href="#billing-description">Billing Description</a></li>
+                  
+              
+                  <li><a href="#deployment-architecture">Deployment Architecture</a></li>
+                  
+              
+                  <li><a href="#permissions-required-for-ram-accounts">Permissions required for RAM accounts</a></li>
+                  
+              
+                  <li><a href="#deployment-process">Deployment process</a></li>
+                  
+                      <li class="li-h3"><a href="#deployment-steps">Deployment steps</a></li>
+                  
+                      <li class="li-h3"><a href="#deployment-parameter-description">Deployment parameter description</a></li>
+                  
+                      <li class="li-h3"><a href="#validation-results">Validation Results</a></li>
+                  
+                      <li class="li-h3"><a href="#use-jenkins">Use Jenkins</a></li>
+                  
+              
+          
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="content theme-github">
+      
+      <div class="content-inner">        
+        
+        <h1 id="jenkins-community-edition-service-instance-deployment-document">Jenkins Community Edition Service Instance Deployment Document</h1>
+<h2 id="overview">Overview</h2>
+<p>Jenkins is an open source software project. It is a continuous integration tool based on Java. It is used to monitor continuous repetitive work. It aims to provide an open and easy-to-use software platform so that software projects can be continuously integrated. Jenkins provides the community version service on the computing nest, you can quickly deploy the Jenkins service and implement O &amp; M monitoring on the computing nest without configuring the cloud host, so you can easily build your own applications based on the Jenkins. This topic describes how to activate the Jenkins Community Edition service on the computing nest, as well as the deployment process and usage instructions.</p>
+<h2 id="billing-description">Billing Description</h2>
+<p>The cost of the Jenkins Community Edition on the calculation nest mainly involves:</p>
+<p>-Selected vCPU and memory specifications
+-Disk Capacity
+-public network bandwidth</p>
+<p>Billing methods include:</p>
+<p>-Pay-As-You-Go (hours)
+-Package year and package month</p>
+<p>The estimated cost can be seen in real time when the instance is created.</p>
+<h2 id="deployment-architecture">Deployment Architecture</h2>
+<p>Jenkins Community Edition is a stand-alone deployment architecture.</p>
+<h2 id="permissions-required-for-ram-accounts">Permissions required for RAM accounts</h2>
+<p>Jenkins services need to access and create resources such as ECS and VPC. If you use a RAM user to create a service instance, you need to add the corresponding resource permissions to the account of the RAM user before creating the service instance. For details about how to add RAM permissions, see <a href="https://help.aliyun.com/document_detail/121945.html">Authorize RAM users</a>. The required permissions are shown in the following table.</p>
+<table>
+<thead>
+<tr>
+<th>Permission policy name</th>
+<th>Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AliyunECSFullAccess</td>
+<td>Permissions to manage ECS instances</td>
+</tr>
+<tr>
+<td>AliyunVPCFullAccess</td>
+<td>Permissions to manage a VPC</td>
+</tr>
+<tr>
+<td>AliyunROSFullAccess</td>
+<td>Manage permissions for Resource Orchestration Service (ROS)</td>
+</tr>
+<tr>
+<td>AliyunComputeNestUserFullAccess</td>
+<td>Manage user-side permissions for the compute nest service (ComputeNest)</td>
+</tr>
+<tr>
+<td>AliyunCloudMonitorFullAccess</td>
+<td>Permissions to manage CloudMonitor (CloudMonitor)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="deployment-process">Deployment process</h2>
+<h3 id="deployment-steps">Deployment steps</h3>
+<p>Click <a href="https://computenest.console.aliyun.com/user/cn-hangzhou/serviceInstanceCreate?ServiceId=service-5789653a5cbe4817a4a7">Deployment Link</a> to enter the service instance deployment page, and fill in the parameters according to the interface prompts to complete the deployment.</p>
+<h3 id="deployment-parameter-description">Deployment parameter description</h3>
+<p>When you create a service instance, you need to configure the service instance information. The details of the input parameters Jenkins the Community Edition service instance are described below.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter group</th>
+<th>Parameter item</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Service instance name</td>
+<td></td>
+<td>test</td>
+<td>Instance name</td>
+</tr>
+<tr>
+<td>Region</td>
+<td></td>
+<td>China (Hangzhou)</td>
+<td>Select the region of the service instance. We recommend that you select the region nearby to obtain better network latency.</td>
+</tr>
+<tr>
+<td>Availability Zone Configuration</td>
+<td>Deployment Region</td>
+<td>Zone I</td>
+<td>Different Availability Zones in a Region</td>
+</tr>
+<tr>
+<td>Payment Type Configuration</td>
+<td>Payment Type</td>
+<td>Pay-As-You-Go or Subscription</td>
+<td></td>
+</tr>
+<tr>
+<td>Select an existing basic resource configuration</td>
+<td>VPC ID</td>
+<td>vpc-xxx</td>
+<td>Select the VPC ID.</td>
+</tr>
+<tr>
+<td>Select the existing basic resource configuration</td>
+<td>VSwitch ID</td>
+<td>vsw-xxx</td>
+<td>Select the VSwitch ID. If the switch cannot be found, try switching the region and zone</td>
+</tr>
+<tr>
+<td>ECS instance configuration</td>
+<td>Instance type</td>
+<td>ecs.g6.large</td>
+<td>Instance type, which can be selected according to actual needs</td>
+</tr>
+<tr>
+<td>ECS instance configuration</td>
+<td>System disk space</td>
+<td>40</td>
+<td>System disk space can be selected according to actual needs</td>
+</tr>
+<tr>
+<td>ECS instance configuration</td>
+<td>Data disk space</td>
+<td>40</td>
+<td>Data disk space can be selected according to actual needs</td>
+</tr>
+<tr>
+<td>ECS instance configuration</td>
+<td>Instance password</td>
+<td><strong><em>*</em></strong>*</td>
+<td>Set the instance password. It must be 8 to 30 characters in length and must contain three items (uppercase letters, lowercase letters, numbers, ()'~!@#$%^&amp; *-+ ={}[]:;' &lt;&gt;,.?/special symbols)</td>
+</tr>
+<tr>
+<td>ECS instance configuration</td>
+<td>Traffic public network broadband</td>
+<td>100</td>
+<td>Public network broadband, which can be selected according to actual needs</td>
+</tr>
+</tbody>
+</table>
+<pre><code>![1.jpg](1.jpg)
+</code></pre>
+<h3 id="validation-results">Validation Results</h3>
+<ol>
+<li>
+<p>View the service instance.
+After the service instance is created successfully, the deployment time takes about 2 minutes. After the deployment is complete, the corresponding service instance is displayed on the page.</p>
+<p><img alt="2.jpg" src="../2.jpg" /></p>
+</li>
+<li>
+<p>After entering the service instance overview page, you can access jenkins services through Endpoint and AdminPassword.</p>
+<p><img alt="3.jpg" src="../3.jpg" /></p>
+</li>
+</ol>
+<h3 id="use-jenkins">Use Jenkins</h3>
+<p>Please visit the Jenkins official website to learn how to use the Jenkins:<a href="http://www.jenkins.org.cn/">Jenkins usage documents</a></p>
+        
+      </div>
+
+      <div class="copyrights">© 2009-2022 Aliyun.com 版权所有</div>
+    </div>
+  </div>
+  
+  <!--
+  MkDocs version      : 1.6.1
+  Docs Build Date UTC : 2024-09-05 09:19:25.846306+00:00
+  -->
+</body>
+</html>
